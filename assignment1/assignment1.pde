@@ -2,10 +2,11 @@ PShape s;  // The PShape  for menu object
 
 Button b1, b2, b3;
 
-boolean locked;
+Circle c1;
 
+//boolean locked;
 color initialColor = color(55, 200, 255);
-color highlitedColor = color(255);
+color highlitedColor = color(255,0,0);
 
 void setup() {
   size(1200, 700);
@@ -14,20 +15,15 @@ void setup() {
   
   
   shape(s, 0, height / 10); //big menu box
-  noStroke();
   
   b1 = new Button(0, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor);
-  b2 = new Button(0, height/2, width/4 +40, height / 6, initialColor, highlitedColor);
+  b2 = new Button(0, height/2.55, width/4 +40, height / 8, initialColor, highlitedColor);
+  b3 = new Button(0, height/1.71, width/4 +40, height / 8, initialColor, highlitedColor);
   b1.drawButton();
   b2.drawButton();
+  b3.drawButton();
   
-  textSize(height/18);
-  fill(255, 200, 255);
-  text("WEAPONS", width/15, height/3.6);
-  text("CHEMISTRY", width/18, height/2.1);
-  text("BALISTIC", width/15, height/1.5);
-  
-  
+ 
 }//end setup()
 
 
@@ -57,9 +53,34 @@ void menuShape()
 void draw() {
 
   //background(50);
-  
+  update(mouseX, mouseY);
+   
+  textSize(height/18);
+  fill(255, 200, 255);
+  text("WEAPONS", width/15, height/3.6);
+  text("", width/18, height/2.1);
+  text("ENERGY", width/15, height/1.5);  
   
   
   
 
+}
+
+void update(int x, int y)
+
+{
+
+ // if(locked == false) 
+  //{
+    b1.updateButton();
+    b2.updateButton();
+    b3.updateButton();
+
+  //} 
+
+  //else {
+
+  //  locked = false;
+
+  //}
 }
