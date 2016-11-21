@@ -15,9 +15,6 @@ color highlitedColor = color(255,0,0); //color for the buttons on the menu bar w
 void setup() {
 
   size(1200, 700);
-  PImage backImg = loadImage("backImg.jpg");
-  image(backImg, 0, 0);
-  backImg.resize(156, 134);
   menuShape();
   ironFace();
   b1 = new Button(1.5, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor);
@@ -82,35 +79,39 @@ void draw() {
     //background(backImg);
     fill(122);
     stroke(123);
-    shape(drawFace, width /2, height - height/1.2);  
+    shape(drawFace, 0, 0);  
   }
   
   if(checkButton2)
   {
   // background(0, 90, 153);
   background(0, 90, 54);
-    fill(0, 90, 178);
+   
     
     //strokeWeight(1);
     
     int posx = 50;
     int posy = 50;
-    float rectWidth = width/25 ;
-    float rectHeight = height /15;
-    for(int row = 0; row < periodicTable.size(); row++)
+    float rectWidth = width/17 ;
+    float rectHeight = height /10;
+    for(int i = 0; i < periodicTable.size(); i++)
     {
       if(posx < width - rectWidth*2)
       {
+        fill(0, 90, 178);
         rect( posx, posy , rectWidth, rectHeight);
      
-        PeriodicTable pt = periodicTable.get(row);
+        PeriodicTable pt = periodicTable.get(i);
         fill(50);
-        int atomicNumber = periodicTable.get(row).getType();
-        text(atomicNumber, posx + 25, posy +15);
-        
+        int atomicNumber = periodicTable.get(i).getType();
+        textSize(10);
+        text(atomicNumber, posx + 5, posy + 15);
+        text(periodicTable.get(i).getSymbol(),  posx + 40, posy + 15);
+        text(periodicTable.get(i).getName(),  posx , posy + 40);
+        text(periodicTable.get(i).getStandardState(),  posx + 43, posy + 65);
         //text(pt, posx, posy, rectWidth, rectHeight);
         
-        posx += width/25 + 10;
+        posx += width/17 + 10;
       }
       else
       {
@@ -120,8 +121,6 @@ void draw() {
       
     }
    
-   
-    
   }
  
 }
@@ -170,9 +169,10 @@ void ironFace()
    drawFace.beginShape();
    fill(0);
    stroke(123);
-   drawFace.vertex(0, 0);
-   drawFace.bezierVertex(100, 150, 200, 200, 250, 250);
-   drawFace.bezierVertex(50, 0, 80, 75, 30, 75);
+   drawFace.vertex(30, 20);
+   drawFace.bezierVertex(80, 0, 80, 75, 30, 75);
+   //drawFace.bezierVertex(150, 100, 175, 80, 200, 100);
+   //drawFace.bezierVertex(50, 0, 80, 75, 30, 75);
    drawFace.endShape(CLOSE);
     
 }
