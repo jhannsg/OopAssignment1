@@ -1,17 +1,23 @@
 PShape s;  // The PShape  for menu object
 PShape drawFace;
 
+
 Button b1, b2, b3;
 Circle c1;
 
 boolean locked;
+boolean checkButton1 = false;
 boolean checkButton2 = false;
+boolean checkButton3 = false;
 color initialColor = color(112); //initial color for the buttons on the menu bar
 color highlitedColor = color(255,0,0); //color for the buttons on the menu bar when mouse is over 
 
 void setup() {
-size(1200, 700);
-  
+
+  size(1200, 700);
+  PImage backImg = loadImage("backImg.jpg");
+  image(backImg, 0, 0);
+  backImg.resize(156, 134);
   menuShape();
   ironFace();
   b1 = new Button(1.5, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor);
@@ -20,7 +26,8 @@ size(1200, 700);
   
   //Load and print periodicTable
   loadTable();
-  printPeriodicTable();
+  //printPeriodicTable();
+ 
  
 }//end setup()
 
@@ -52,7 +59,7 @@ void printPeriodicTable()
 }
 
 void draw() {
-
+  
   background(50);
   shape(s, 0, height / 10); //big menu box
   
@@ -61,7 +68,8 @@ void draw() {
   b1.drawButton();
   b2.drawButton();
   b3.drawButton();
-   
+  
+  //Text for contol panel/menu box
   textSize(height/18);
   fill(255, 55, 255);
   text("STATUS", width/15, height/3.6);
@@ -69,17 +77,56 @@ void draw() {
   text("ENERGY", width/15, height/1.5);  
   
   //display the ironFace status when button pressed  
-  if(checkButton2)
+  if(checkButton1)
   {
+    //background(backImg);
+    fill(122);
+    stroke(123);
     shape(drawFace, width /2, height - height/1.2);  
   }
-  else
+  
+  if(checkButton2)
   {
+  // background(0, 90, 153);
+  background(0, 90, 54);
+    fill(0, 90, 178);
+    
+    //strokeWeight(1);
+    
+    int posx = 50;
+    int posy = 50;
+    float rectWidth = width/25 ;
+    float rectHeight = height /15;
+    for(int row = 0; row < periodicTable.size(); row++)
+    {
+      if(posx < width - rectWidth*2)
+      {
+        rect( posx, posy , rectWidth, rectHeight);
+     
+        PeriodicTable pt = periodicTable.get(row);
+        fill(50);
+        int atomicNumber = periodicTable.get(row).getType();
+        text(atomicNumber, posx + 25, posy +15);
+        
+        //text(pt, posx, posy, rectWidth, rectHeight);
+        
+        posx += width/25 + 10;
+      }
+      else
+      {
+        posx = 50;
+        posy += rectHeight + 10;
+      }
+      
+    }
+   
+   
+    
   }
+ 
 }
 
 void update(int x, int y)
-
 {
 
  if(locked == false) 
@@ -97,19 +144,20 @@ void update(int x, int y)
   if(mousePressed) {
     if(b1.onMousePress() )
     {
-      fill(100,100,0);
-      rect(500,500, 349,574);
+      checkButton1 = true;
+      //fill(100,100,0);
+      //rect(500,500, 349,574);
     }
     
     if(b2.onMousePress() )
     {
-      checkButton2 = true;  
+      checkButton2 = true; 
+  
     }
     
     if(b3.onMousePress() )
     {
-      fill(100,100,0);
-      rect(500,500, 349,574);
+      checkButton3 = true;
     }
   }
 }
@@ -120,13 +168,13 @@ void ironFace()
 {
    drawFace = createShape();
    drawFace.beginShape();
-   fill(255);
+   fill(0);
+   stroke(123);
    drawFace.vertex(0, 0);
-   drawFace.bezierVertex(80, 0, 80, 75, 30, 75);
+   drawFace.bezierVertex(100, 150, 200, 200, 250, 250);
+   drawFace.bezierVertex(50, 0, 80, 75, 30, 75);
    drawFace.endShape(CLOSE);
-  
-  
-  
+    
 }
 
 
@@ -150,6 +198,5 @@ void menuShape()
   s.vertex(menuBoxWidth*1.14, menuBoxHeight);
   s.vertex(menuBoxWidth, menuBoxHeight + height/23.33);
   s.vertex(0, menuBoxHeight + height/23.33); 
-  s.endShape(CLOSE);
-  
-}
+  s.endShape(CLOSE); 
+}//end menuShape()
