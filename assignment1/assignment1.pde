@@ -1,5 +1,5 @@
 PShape s;  // The PShape  for menu object
-PShape drawFace;
+PImage img;
 
 
 Button b1, b2, b3;
@@ -16,7 +16,7 @@ void setup() {
 
   size(1200, 700);
   menuShape();
-  ironFace();
+
   b1 = new Button(1.5, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor);
   b2 = new Button(1.5, height/2.55, width/4 +40, height / 8, initialColor, highlitedColor);
   b3 = new Button(1.5, height/1.71, width/4 +40, height / 8, initialColor, highlitedColor);
@@ -24,6 +24,8 @@ void setup() {
   //Load and print periodicTable
   loadTable();
   //printPeriodicTable();
+  
+  img = loadImage("ironman3.jpg");
  
  
 }//end setup()
@@ -58,6 +60,7 @@ void printPeriodicTable()
 void draw() {
   
   background(50);
+  image(img, 0, 0, 1200, 700);
   shape(s, 0, height / 10); //big menu box
   
   update(mouseX, mouseY);
@@ -76,51 +79,12 @@ void draw() {
   //display the ironFace status when button pressed  
   if(checkButton1)
   {
-    //background(backImg);
-    fill(122);
-    stroke(123);
-    shape(drawFace, 0, 0);  
+      
   }
   
   if(checkButton2)
   {
-  // background(0, 90, 153);
-  background(0, 90, 54);
-   
-    
-    //strokeWeight(1);
-    
-    int posx = 50;
-    int posy = 50;
-    float rectWidth = width/17 ;
-    float rectHeight = height /10;
-    for(int i = 0; i < periodicTable.size(); i++)
-    {
-      if(posx < width - rectWidth*2)
-      {
-        fill(0, 90, 178);
-        rect( posx, posy , rectWidth, rectHeight);
-     
-        PeriodicTable pt = periodicTable.get(i);
-        fill(50);
-        int atomicNumber = periodicTable.get(i).getType();
-        textSize(10);
-        text(atomicNumber, posx + 5, posy + 15);
-        text(periodicTable.get(i).getSymbol(),  posx + 40, posy + 15);
-        text(periodicTable.get(i).getName(),  posx , posy + 40);
-        text(periodicTable.get(i).getStandardState(),  posx + 43, posy + 65);
-        //text(pt, posx, posy, rectWidth, rectHeight);
-        
-        posx += width/17 + 10;
-      }
-      else
-      {
-        posx = 50;
-        posy += rectHeight + 10;
-      }
-      
-    }
-   
+    displayPeriodicTable();
   }
  
 }
@@ -162,23 +126,6 @@ void update(int x, int y)
 }
 
 
-
-void ironFace()
-{
-   drawFace = createShape();
-   drawFace.beginShape();
-   fill(0);
-   stroke(123);
-   drawFace.vertex(30, 20);
-   drawFace.bezierVertex(80, 0, 80, 75, 30, 75);
-   //drawFace.bezierVertex(150, 100, 175, 80, 200, 100);
-   //drawFace.bezierVertex(50, 0, 80, 75, 30, 75);
-   drawFace.endShape(CLOSE);
-    
-}
-
-
-
 //Displays the control menu bar as a rectangle in the left hand side of the screen
 // Creating a custom PShape as a rectangle
 // using vertex().
@@ -200,3 +147,40 @@ void menuShape()
   s.vertex(0, menuBoxHeight + height/23.33); 
   s.endShape(CLOSE); 
 }//end menuShape()
+
+
+//Display the elements of perodic table in rectangles
+void displayPeriodicTable()
+{
+    background(123);
+
+    int posx = 20;
+    int posy = 20;
+    float rectWidth = width/17 ;
+    float rectHeight = height /10;
+    for(int i = 0; i < periodicTable.size(); i++)
+    {
+      if(posx < width - rectWidth*1.5)
+      {
+        fill(0, 90, 178);
+        rect( posx, posy , rectWidth, rectHeight);
+     
+        PeriodicTable pt = periodicTable.get(i);
+        fill(50);
+        int atomicNumber = periodicTable.get(i).getType();
+        textSize(10);
+        text(atomicNumber, posx + 5, posy + 15);
+        text(periodicTable.get(i).getSymbol(),  posx + 40, posy + 15);
+        text(periodicTable.get(i).getName(),  posx , posy + 40);
+        text(periodicTable.get(i).getStandardState(),  posx + 43, posy + 65);
+        
+        posx += width/17 + 10;
+      }
+      else
+      {
+        posx = 20;
+        posy += rectHeight + 10;
+      }
+      
+    } 
+}
