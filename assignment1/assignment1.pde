@@ -75,11 +75,12 @@ void printPeriodicTable()
 }
 
 void draw() {
-  
+   
   if(start == false)
   {
     background(0);
     fp.drawFirstPage();
+    //start = true;
   }
   
   else
