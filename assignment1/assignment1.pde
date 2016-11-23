@@ -4,9 +4,7 @@ PFont font;
 
 FirstPage fp;
 Button b1, b2, b3;
-Circle c1, c2;
-
-
+Search search;
 
 
 //create 3 buttons for side menu
@@ -36,11 +34,11 @@ void setup() {
   
   initMenuButtons();
   
-  //Load and print periodicTable
-   loadTable();
-  //printPeriodicTable();
+  loadTable();
   
   img = loadImage("ironman3.jpg");
+  
+  search = new Search();
  
  
 }//end setup()
@@ -76,20 +74,18 @@ void printPeriodicTable()
 
 void draw() {
    
-  if(start == false)
+  /*if(start == false)
   {
     background(0);
     fp.drawFirstPage();
-    //start = true;
   }
-  
+ 
   else
-  {
+  {*/
       background(50);
       image(img, 0, 0, 1280, 720);
       shape(s, 0, height / 10); //big menu box
       
-     
       update(mouseX, mouseY);
       
       b1.drawButton();
@@ -100,9 +96,9 @@ void draw() {
      
       textSize(height/18);
       fill(255, 55, 255);
-      text("STATUS", width/15, height/3.6);
+      text(" STATUS", width/15, height/3.6);
       text("TOXICITY", width/18, height/2.1);
-      text("ENERGY", width/15, height/1.5);  
+      text("   MAP", width/15, height/1.5);  
       
       //display the ironFace status when button pressed  
       if(checkButton1)
@@ -114,8 +110,14 @@ void draw() {
       {
         displayPeriodicTable();
       }
+      
+      if(checkButton3)
+      {
+        search.drawLines();
+          
+      }
   }  
-}
+//}
 
 void update(int x, int y)
 {
