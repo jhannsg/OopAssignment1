@@ -1,10 +1,24 @@
 PShape s;  // The PShape  for menu object
 PImage img;
+PFont font;
 
-
+FirstPage fp;
 Button b1, b2, b3;
-Circle c1;
+Circle c1, c2;
 
+
+
+
+//create 3 buttons for side menu
+void initMenuButtons()
+{
+  b1 = new Button(1.5, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor);
+  b2 = new Button(1.5, height/2.55, width/4 +40, height / 8, initialColor, highlitedColor);
+  b3 = new Button(1.5, height/1.71, width/4 +40, height / 8, initialColor, highlitedColor); 
+}
+
+
+boolean start = false;
 boolean locked;
 boolean checkButton1 = false;
 boolean checkButton2 = false;
@@ -14,21 +28,24 @@ color highlitedColor = color(255,0,0); //color for the buttons on the menu bar w
 
 void setup() {
 
-  size(1200, 700);
+  size(1280, 720);
+  
+  fp = new FirstPage();
+ 
   menuShape();
-
-  b1 = new Button(1.5, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor);
-  b2 = new Button(1.5, height/2.55, width/4 +40, height / 8, initialColor, highlitedColor);
-  b3 = new Button(1.5, height/1.71, width/4 +40, height / 8, initialColor, highlitedColor);
+  
+  initMenuButtons();
   
   //Load and print periodicTable
-  loadTable();
+   loadTable();
   //printPeriodicTable();
   
   img = loadImage("ironman3.jpg");
  
  
 }//end setup()
+
+
 
 ArrayList<PeriodicTable> periodicTable = new ArrayList<PeriodicTable>();
 
@@ -59,36 +76,44 @@ void printPeriodicTable()
 
 void draw() {
   
-  background(50);
-  image(img, 0, 0, 1200, 700);
-  shape(s, 0, height / 10); //big menu box
-  
- 
-  
-  update(mouseX, mouseY);
-  
-  b1.drawButton();
-  b2.drawButton();
-  b3.drawButton();
-  
-  //Text for contol panel/menu box
-  textSize(height/18);
-  fill(255, 55, 255);
-  text("STATUS", width/15, height/3.6);
-  text("TOXICITY", width/18, height/2.1);
-  text("ENERGY", width/15, height/1.5);  
-  
-  //display the ironFace status when button pressed  
-  if(checkButton1)
+  if(start == false)
   {
+    background(0);
+    fp.drawFirstPage();
+  }
+  
+  else
+  {
+      background(50);
+      image(img, 0, 0, 1280, 720);
+      shape(s, 0, height / 10); //big menu box
       
-  }
-  
-  if(checkButton2)
-  {
-    displayPeriodicTable();
-  }
- 
+     
+      update(mouseX, mouseY);
+      
+      b1.drawButton();
+      b2.drawButton();
+      b3.drawButton();
+      
+      //Text for contol panel/menu box
+     
+      textSize(height/18);
+      fill(255, 55, 255);
+      text("STATUS", width/15, height/3.6);
+      text("TOXICITY", width/18, height/2.1);
+      text("ENERGY", width/15, height/1.5);  
+      
+      //display the ironFace status when button pressed  
+      if(checkButton1)
+      {
+          
+      }
+      
+      if(checkButton2)
+      {
+        displayPeriodicTable();
+      }
+  }  
 }
 
 void update(int x, int y)
@@ -164,7 +189,8 @@ void displayPeriodicTable()
     {
       if(posx < width - rectWidth*1.5)
       {
-        fill(0, 90, 178);
+        stroke(159, 242, 162);
+        fill(184, 229, 242);
         rect( posx, posy , rectWidth, rectHeight);
      
         PeriodicTable pt = periodicTable.get(i);
