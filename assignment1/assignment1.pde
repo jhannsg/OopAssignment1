@@ -1,5 +1,6 @@
 PShape s;  // The PShape  for menu object
 PImage img;
+PImage mapImg;
 PFont font;
 
 FirstPage fp;
@@ -26,7 +27,7 @@ color highlitedColor = color(255,0,0); //color for the buttons on the menu bar w
 
 void setup() {
 
-  size(1280, 720);
+  size(1280, 700);
   
   fp = new FirstPage();
  
@@ -37,6 +38,8 @@ void setup() {
   loadTable();
   
   img = loadImage("ironman3.jpg");
+  
+  mapImg = loadImage("map.jpg");
   
   search = new Search();
  
@@ -97,7 +100,7 @@ void draw() {
       textSize(height/18);
       fill(255, 55, 255);
       text(" STATUS", width/15, height/3.6);
-      text("TOXICITY", width/18, height/2.1);
+      text("  HEALTH", width/18, height/2.1);
       text("   MAP", width/15, height/1.5);  
       
       //display the ironFace status when button pressed  
