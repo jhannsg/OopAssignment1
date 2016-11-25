@@ -1,19 +1,20 @@
 PShape s;  // The PShape  for menu object
 PImage img;
 PImage mapImg;
-PFont font;
+PFont font1;
 
 FirstPage fp;
 Button b1, b2, b3;
 Search search;
+Status stat;
 
 
 //create 3 buttons for side menu
 void initMenuButtons()
 {
-  b1 = new Button(1.5, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor);
-  b2 = new Button(1.5, height/2.55, width/4 +40, height / 8, initialColor, highlitedColor);
-  b3 = new Button(1.5, height/1.71, width/4 +40, height / 8, initialColor, highlitedColor); 
+  b1 = new Button(1.5, height/5.2, width/4 +40, height / 8);
+  b2 = new Button(1.5, height/2.55, width/4 +40, height / 8);
+  b3 = new Button(1.5, height/1.71, width/4 +40, height / 8); 
 }
 
 
@@ -22,8 +23,11 @@ boolean locked;
 boolean checkButton1 = false;
 boolean checkButton2 = false;
 boolean checkButton3 = false;
-color initialColor = color(112); //initial color for the buttons on the menu bar
-color highlitedColor = color(255,0,0); //color for the buttons on the menu bar when mouse is over 
+color initialColor = color(112);        //initial color for the buttons on the menu bar
+color highlitedColor = color(255,0,0);  //color for the buttons on the menu bar when mouse is over
+
+ArrayList<PeriodicTable> periodicTable = new ArrayList<PeriodicTable>(); 
+ 
 
 void setup() {
 
@@ -36,44 +40,22 @@ void setup() {
   initMenuButtons();
   
   loadTable();
+  printPeriodicTable();
   
   img = loadImage("ironman3.jpg");
   
   mapImg = loadImage("map.jpg");
   
   search = new Search();
- 
- 
+  
+  stat = new Status();
+  font1 = loadFont("Chalk48.vlw"); 
+  
+  
+  
 }//end setup()
 
 
-
-ArrayList<PeriodicTable> periodicTable = new ArrayList<PeriodicTable>();
-
-void loadTable()
-{
-  Table t = loadTable("periodicTable.csv");
-  periodicTable.clear();
-  for (int row = 0; row < t.getRowCount(); row ++)
-   {
-     PeriodicTable pt = new PeriodicTable(t.getInt(row, 0),
-                       t.getString(row, 1),
-                       t.getString(row, 2),              
-                       t.getString(row, 13)                   
-                       );
-     periodicTable.add(pt);
-    
-   }
-}//end periodicTable()
-
-void printPeriodicTable()
-{
-  for(int i = 0; i < periodicTable.size(); i++)
-  {
-    PeriodicTable pt = periodicTable.get(i);
-    println(pt);
-  }
-}
 
 void draw() {
    
@@ -82,8 +64,8 @@ void draw() {
     background(0);
     fp.drawFirstPage();
   }
- 
-  else
+
+  else 
   {*/
       background(50);
       image(img, 0, 0, 1280, 720);
@@ -106,7 +88,11 @@ void draw() {
       //display the ironFace status when button pressed  
       if(checkButton1)
       {
-          
+        background(0);
+        stat.displayTime();
+        stat.healthChart(); 
+        stat.lines();
+        
       }
       
       if(checkButton2)
@@ -121,6 +107,7 @@ void draw() {
       }
   }  
 //}
+
 
 void update(int x, int y)
 {
@@ -141,8 +128,7 @@ void update(int x, int y)
     if(b1.onMousePress() )
     {
       checkButton1 = true;
-      //fill(100,100,0);
-      //rect(500,500, 349,574);
+      
     }
     
     if(b2.onMousePress() )
@@ -180,6 +166,32 @@ void menuShape()
   s.vertex(0, menuBoxHeight + height/23.33); 
   s.endShape(CLOSE); 
 }//end menuShape()
+
+
+void loadTable()
+{
+  Table t = loadTable("periodicTable.csv");
+  periodicTable.clear();
+  for (int row = 0; row < t.getRowCount(); row ++)
+   {
+     PeriodicTable pt = new PeriodicTable(t.getInt(row, 0),
+                       t.getString(row, 1),
+                       t.getString(row, 2),              
+                       t.getString(row, 13)                   
+                       );
+     periodicTable.add(pt);
+    
+   }
+}//end periodicTable()
+
+void printPeriodicTable()
+{
+  for(int i = 0; i < periodicTable.size(); i++)
+  {
+    PeriodicTable pt = periodicTable.get(i);
+    println(pt);
+  }
+}
 
 
 //Display the elements of perodic table in rectangles

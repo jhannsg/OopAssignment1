@@ -3,42 +3,37 @@ class Button{
  float y;
  float w;
  float h;
- 
- color initialColor, newColor;
+ color bColor = color(112);      //initial color for the buttons on the menu bar
+ color newColor = color(255,0,0);  //color for the buttons on the menu bar when mouse is over
+
  
  boolean mouseOver = false;
  boolean onMousePress = false;
  
- Button(float x, float y, float w, float h, color initialColor, color newColor)
+ //construxtor
+ Button(float x, float y, float w, float h)
  {
    this.x = x;
    this.y = y;
    this.w = w;
    this.h = h;
-   this.initialColor = initialColor;
-   this.newColor = newColor;
+ 
  }
  
- void drawButton() 
-
-  {
-
-    stroke(255);
-
-    fill(initialColor);
-
-    rect(x, y, w, h);
-
-  }
  
+ 
+ //update the colour of the button
  void updateButton()
  {
    if(mouseOver)
    {
-     initialColor = newColor;
+    //fill(newColor);
+    //rect(500, 600, 200, 500);
    }
    else
-   {}
+   {
+     bColor = newColor;
+   }
  }
    
    
@@ -57,11 +52,11 @@ class Button{
   }
   
   
-  boolean overB(float x, float y, float w, float h)
+  boolean overButton(float x, float y, float w, float h)
   {
     if (mouseX >= x && mouseX <= x+w && 
-        mouseY >= y && mouseY <= y+h) {
-
+        mouseY >= y && mouseY <= y+h) 
+    { 
       return true; 
     }
     
@@ -70,5 +65,34 @@ class Button{
       return false;
     }
   }
+  
+
+   boolean mouseOver() 
+  {
+
+    if( overButton(x, y, w, h) ) 
+    {
+      mouseOver = true; 
+      return true;
+    } 
+
+    else {
+      mouseOver = false;
+      return false;
+    }
+
+  }
+  
+  
+  //draw the button 
+ void drawButton() 
+  {
+    stroke(70,247,201);
+    noFill();
+    rect(x, y, w, h);
+    mouseOver();
+  }
+  
+  
     
-}//end Button class()
+}

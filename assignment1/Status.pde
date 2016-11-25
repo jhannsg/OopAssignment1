@@ -1,4 +1,5 @@
 class Status{
+  Button buton;
  
   void displayTime()
   {
@@ -14,69 +15,21 @@ class Status{
   }
   
   
-   void statusChart()
-  {
-   String [] elements= {"Paladdium", "Oxygen", "Hydrogen", "Aluminium", "Titanium", "Magnesium", "Argon", "Nitrogen", "Sodium", "Zinc", "Krypton", "Vibranium", };
-   
-   int n; 
-   n = elements.length;
-   
-   float [] values = new float[n];
    
    
-   for(int i = 0; i < n; i++)
+   void lines()
    {
-      values[i] = random(0,100); 
-      println(values[i]);
-      
-   }
-   
-   float maxValue;
-   float minValue;
-   float average;
-   float sum;
-   sum = 0;
-   maxValue = values[0];
-   minValue = values[0];
-   
-   for(int i = 0; i < n; i++)
-   {
-     if(maxValue < values[i])
-     {
-       maxValue = values[i];
-     }
+     strokeWeight(4);
+     stroke(255,255,255);
+     //line(width/8, -height + 100, width/6, -height + 50);
+     line(100, 100, 200, 50);
+     line(200, 50, 1050, 50); 
+     line(1050, 50, 1150, 100);
      
-     if(minValue > values[i])
-     {
-       minValue = values[i];
-     } 
-     sum += values[i];
+     line(100, 630, 200, 680);
+     line(200, 680, 1050, 680);
+     line(1050, 680, 1150, 630);
    }
-   average  = sum / n;
-   
-   float chartHeight;
-   float chartWidth;
-   chartWidth = width / 2;
-   chartHeight = height/ 2;
-   
-   float barWidth = chartWidth / n;
-   float scaleFactor = chartHeight / maxValue;
-   
-   for(int i = 0; i < n; i++)
-   {
-     if(values[i] < 25)
-     {fill(244,0,0);}
-     if(values[i] > 25 && values[i] < 50)
-     {fill(122,122,0);}
-     if(values[i] > 50)
-     {fill(0, 244, 0);}
-     
-     float y = i * barWidth + 200;
-     rect (500, y, values[i] * scaleFactor, barWidth);  
-   }
-   
-  } 
-   
     
   
   

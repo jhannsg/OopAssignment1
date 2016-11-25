@@ -86,7 +86,7 @@ class FirstPage
       }
         ellipse(x + size, y, size, size); 
         stroke(255,0,0);
-        line(x + size -50, y - 50,  x + size + 50, y + 50);
+        line(x + size - 50, y - 50,  x + size + 50, y + 50);
         line(x + size + 50, y - 50, x + size - 50, y + 50);
    }
        
