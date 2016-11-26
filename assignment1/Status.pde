@@ -1,5 +1,11 @@
 class Status{
   Button buton;
+  
+   float maxValue;
+   float minValue;
+   float average;
+   float sum;
+   color c;
  
   void displayTime()
   {
@@ -14,10 +20,105 @@ class Status{
      text(time, width - 200, 80);
   }
   
+
+   void healthChart()
+  {
+   String [] elements= {"Palladium", "Oxygen", "Hydrogen", "Aluminium", "Titanium", "Magnesium", "Argon", "Nitrogen", "Sodium", "Zinc", "Krypton", "Vibranium", };
+   
+   int n; 
+   n = elements.length;
+   
+   float [] values = new float[n];
+   
+   
+   for(int i = 0; i < n; i++)
+   {
+      values[i] = random(10,75); 
+      println(values[i]);
+      
+   }
+   
   
+   sum = 0;
+   maxValue = values[0];
+   minValue = values[0];
    
+  
+   for(int i = 0; i < n; i++)
+   {
+     if(maxValue < values[i])
+     {
+       maxValue = values[i];
+     }
+     
+     if(minValue > values[i])
+     {
+       minValue = values[i];
+     } 
+     sum += values[i];
+   }
+   average  = sum / n;
    
-   void lines()
+   float chartHeight;
+   float chartWidth;
+   chartWidth = width / 3;
+   chartHeight = height/ 2;
+   
+   float barWidth = chartWidth / n;
+   float scaleFactor = chartHeight / maxValue;
+   
+   for(int i = 0; i < n; i++)
+   {
+     if(values[i] < 25)
+     {
+       c = color(244,0,0);
+     }
+     if(values[i] > 25 && values[i] < 50)
+     {c = color(122,122,0);}
+     if(values[i] > 50)
+     {c = color(0,244,0);}
+     
+     //drawChart and display name of element
+     float y = i * barWidth +150;
+     
+     buton = new Button(150, y, values[i] * scaleFactor, barWidth, c , highlitedColor);
+     buton.drawButton();
+     buton.updateButton();
+     //rect (150 , y  , values[i] * scaleFactor, barWidth);  
+     
+     fill(255, 255,255);
+     textAlign(LEFT);
+     textFont(font1, 20);
+     text(elements[i] , 155 + values[i] * scaleFactor, y + barWidth - 5);
+     textAlign(RIGHT);
+     text(int(values[i]) + "%", 145 + values[i] * scaleFactor, y + barWidth - 5);
+     
+     
+   }
+   
+   for(int i = 0; i < n; i++)
+   {
+     if(average < 40 || values[i] < 25)
+     {
+       //println("inside first if");
+      // println(elements[i]);
+   
+       for(int j = 0; j < periodicTable.size(); j++)
+       {
+           if( elements[i].equals(trim(periodicTable.get(j).getName())))
+            {
+            println(elements[i] + periodicTable.get(j).getName());
+            
+                                      
+            }
+    
+        }   
+      } 
+    }
+   // noLoop();
+  }
+   
+   void marginLines()
    {
      strokeWeight(4);
      stroke(255,255,255);
@@ -30,6 +131,8 @@ class Status{
      line(200, 680, 1050, 680);
      line(1050, 680, 1150, 630);
    }
+   
+   
     
   
   

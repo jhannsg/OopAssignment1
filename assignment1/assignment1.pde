@@ -3,18 +3,21 @@ PImage img;
 PImage mapImg;
 PFont font1;
 
+ 
+
 FirstPage fp;
 Button b1, b2, b3;
 Search search;
 Status stat;
 
 
+
 //create 3 buttons for side menu
 void initMenuButtons()
 {
-  b1 = new Button(1.5, height/5.2, width/4 +40, height / 8);
-  b2 = new Button(1.5, height/2.55, width/4 +40, height / 8);
-  b3 = new Button(1.5, height/1.71, width/4 +40, height / 8); 
+  b1 = new Button(1.5, height/5.2, width/4 +40, height / 8, initialColor, highlitedColor );
+  b2 = new Button(1.5, height/2.55, width/4 +40, height / 8, initialColor, highlitedColor);
+  b3 = new Button(1.5, height/1.71, width/4 +40, height / 8, initialColor, highlitedColor); 
 }
 
 
@@ -24,7 +27,7 @@ boolean checkButton1 = false;
 boolean checkButton2 = false;
 boolean checkButton3 = false;
 color initialColor = color(112);        //initial color for the buttons on the menu bar
-color highlitedColor = color(255,0,0);  //color for the buttons on the menu bar when mouse is over
+color highlitedColor = color(123);  //color for the buttons on the menu bar when mouse is over
 
 ArrayList<PeriodicTable> periodicTable = new ArrayList<PeriodicTable>(); 
  
@@ -49,6 +52,8 @@ void setup() {
   search = new Search();
   
   stat = new Status();
+  
+  
   font1 = loadFont("Chalk48.vlw"); 
   
   
@@ -59,14 +64,14 @@ void setup() {
 
 void draw() {
    
-  /*if(start == false)
+  if(start == true)//change to false for loading
   {
     background(0);
     fp.drawFirstPage();
   }
 
   else 
-  {*/
+  {
       background(50);
       image(img, 0, 0, 1280, 720);
       shape(s, 0, height / 10); //big menu box
@@ -78,9 +83,8 @@ void draw() {
       b3.drawButton();
       
       //Text for contol panel/menu box
-     
-      textSize(height/18);
-      fill(255, 55, 255);
+      textFont(font1,height/18);
+      fill(255);
       text(" STATUS", width/15, height/3.6);
       text("  HEALTH", width/18, height/2.1);
       text("   MAP", width/15, height/1.5);  
@@ -89,9 +93,10 @@ void draw() {
       if(checkButton1)
       {
         background(0);
-        stat.displayTime();
-        stat.healthChart(); 
-        stat.lines();
+        
+        //stat.displayTime();
+        stat.healthChart();
+        stat.marginLines();
         
       }
       
@@ -106,7 +111,7 @@ void draw() {
           
       }
   }  
-//}
+}
 
 
 void update(int x, int y)
