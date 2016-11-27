@@ -1,9 +1,10 @@
 PShape s;  // The PShape  for menu object
 PImage img;
 PImage mapImg;
+
 PFont font1;
 
- 
+color mainColor = color(0, 200, 0); //mai color
 
 FirstPage fp;
 Button b1, b2, b3;
@@ -46,7 +47,6 @@ void setup() {
   printPeriodicTable();
   
   img = loadImage("ironman3.jpg");
-  
   mapImg = loadImage("map.jpg");
   
   search = new Search();
@@ -63,7 +63,7 @@ void setup() {
 
 
 void draw() {
-   
+  
   if(start == true)//change to false for loading
   {
     background(0);
@@ -97,6 +97,7 @@ void draw() {
         //stat.displayTime();
         stat.healthChart();
         stat.marginLines();
+        stat.circle();
         
       }
       
