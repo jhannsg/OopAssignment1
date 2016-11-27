@@ -10,6 +10,8 @@ FirstPage fp;
 Button b1, b2, b3;
 Search search;
 Status stat;
+   
+
 
 
 
@@ -95,8 +97,8 @@ void draw() {
         background(0);
         
         //stat.displayTime();
-        stat.healthChart();
-        stat.marginLines();
+        stat.myBackground();
+        stat.healthChart();       
         stat.circle();
         
       }
