@@ -3,10 +3,6 @@ class Search{
   float y = 0;
   float w = width;
   float h = height;
-  
-  PVector position;
-  PVector velocity;
- 
 
   
   String date;
@@ -35,6 +31,7 @@ class Search{
     {
       searchIndex1 = -1*searchIndex1;
     }
+    
     line(0, y, w , y);
     line(0, y + searchBoxSize, w, y + searchBoxSize);   
     y += searchIndex2;
@@ -44,10 +41,9 @@ class Search{
       searchIndex2 = -1*searchIndex2;
     }
     
-    
-     position = new PVector(x, y);
-     velocity = new PVector(9, 7);
-     ellipse(position.x, position.y, 0, 0 );
+     noStroke();
+     ellipse(x + searchBoxSize/2, y + searchBoxSize / 2, searchBoxSize,searchBoxSize);
+     
      
     
      date = nf(day(),2) + "."+ nf(month(),2) + "."+ year() ;

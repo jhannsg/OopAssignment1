@@ -87,7 +87,6 @@ class Button{
 
   }
   
-  
   //draw the button 
  void drawButton() 
   {

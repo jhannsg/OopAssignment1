@@ -1,11 +1,16 @@
 class Status{
   Button buton;
   
+   String [] elements;
+   float [] values;
+   int n; 
    float maxValue;
    float minValue;
    float average;
    float sum;
-   color c;
+   color c =  color(0, 200, 0);
+   color c1 = color(25, 220, 20);
+   
  
   void displayTime()
   {
@@ -21,28 +26,29 @@ class Status{
   }
   
 
+
    void healthChart()
   {
-   String [] elements= {"Palladium", "Oxygen", "Hydrogen", "Aluminium", "Titanium", "Magnesium", "Argon", "Nitrogen", "Sodium", "Zinc", "Krypton", "Vibranium", };
-   
-   int n; 
+   fill(255, 255,255);
+   textAlign(LEFT);
+   textFont(font1, 20);
+   text("HEALTH ANALISYS MONITOR v098.21", 20, 20);
+    
+   String [] elements = {"Palladium", "Oxygen", "Hydrogen", "Aluminium", "Titanium", "Magnesium", "Argon", "Nitrogen", "Sodium", "Zinc", "Krypton", "Vibranium", };
+     
    n = elements.length;
    
    float [] values = new float[n];
-   
-   
+  
    for(int i = 0; i < n; i++)
    {
-      values[i] = random(10,75); 
-      println(values[i]);
-      
+      values[i] = random(10,75); //genereate random values for elements
+      println(values[i]); 
    }
    
-  
    sum = 0;
    maxValue = values[0];
-   minValue = values[0];
-   
+   minValue = values[0]; 
   
    for(int i = 0; i < n; i++)
    {
@@ -67,6 +73,7 @@ class Status{
    float barWidth = chartWidth / n;
    float scaleFactor = chartHeight / maxValue;
    
+   //draw chart
    for(int i = 0; i < n; i++)
    {
      if(values[i] < 25)
@@ -80,49 +87,69 @@ class Status{
      
      //drawChart and display name of element
      float y = i * barWidth +150;
+    
+     buton = new Button(150, y, values[i] * scaleFactor, barWidth, c , c1);
      
-     buton = new Button(150, y, values[i] * scaleFactor, barWidth, c , highlitedColor);
      buton.drawButton();
+     noStroke();
      buton.updateButton();
-     //rect (150 , y  , values[i] * scaleFactor, barWidth);  
      
      fill(255, 255,255);
      textAlign(LEFT);
      textFont(font1, 20);
      text(elements[i] , 155 + values[i] * scaleFactor, y + barWidth - 5);
      textAlign(RIGHT);
-     text(int(values[i]) + "%", 145 + values[i] * scaleFactor, y + barWidth - 5);
-     
-     
+     text(int(values[i]) + "%", 145 + values[i] * scaleFactor, y + barWidth - 5); 
    }
    
+   //find elements identical with the one in arrayList
    for(int i = 0; i < n; i++)
    {
      if(average < 40 || values[i] < 25)
-     {
-       //println("inside first if");
-      // println(elements[i]);
-   
+     {   
        for(int j = 0; j < periodicTable.size(); j++)
        {
            if( elements[i].equals(trim(periodicTable.get(j).getName())))
             {
-            println(elements[i] + periodicTable.get(j).getName());
-            
-                                      
+            println(elements[i] + periodicTable.get(j).getName());                        
             }
-    
         }   
       } 
     }
-   // noLoop();
+    
+    textAlign(LEFT);
+    if (values[0] < 25)
+    {
+      text ("Palladium - " + (int)values[0]+ "%", 675, 135); 
+     // fill(255,0,0);
+      text("DANGER", 900, 135);
+    }
+    else if (values[0] > 25 && values[0] < 50)
+    {
+      text ("Palladium - " + (int)values[0]+ "%", 675, 135);     
+      text("LOW LEVEL", 900, 135);
+    }
+    else if ( values[0] > 50)
+    {
+      text ("Palladium - " + (int)values[0]+ "%", 675, 135); 
+      text("GOOD LEVEL", 900, 135);    
+    }
+    
+    
+    text("HEAT", 715, 215);
+    
+    
+    
+   
+    
+    noLoop();
   }
    
-   void marginLines()
-   {
+   void myBackground()
+   {     
      strokeWeight(4);
      stroke(255,255,255);
-     //line(width/8, -height + 100, width/6, -height + 50);
+
      line(100, 100, 200, 50);
      line(200, 50, 1050, 50); 
      line(1050, 50, 1150, 100);
@@ -130,14 +157,69 @@ class Status{
      line(100, 630, 200, 680);
      line(200, 680, 1050, 680);
      line(1050, 680, 1150, 630);
+          
    }
    
+   void drawGrid()
+   {
+      //draw the grid
+      strokeWeight(1);
+      for(int i = 0; i <= rowCount; i++)
+      {
+        for(int j = 0; j <= colCount ; j++)
+        {
+          stroke(0, 199, 0);
+           line(0, j* celHeight , width, celHeight * j);
+           line(j* celWidth  ,0 , celWidth * j, height  );
+        }
+      }
+   }
    
-    
-  
-  
-  
-  
+   int rowCount = 10;
+   int colCount = 15;   
+   float celWidth = width  / (float)colCount;
+   float celHeight = celWidth;
+   
+   
+   //draw a circle and show the percentage of health on it using arc()
+   void circle()
+   {
+     c =  color(0, 200, 0);
+     stroke(mainColor);
+     strokeWeight(2);
+     noFill();
+     ellipse(950, 500, 200, 200);
+     fill(c);
+     
+     float y1 = map(sum, 0, 1200, 0, TWO_PI);
+     float y2 = map(1200 , 0, 1200, 0, TWO_PI);
+     
+     float perc1 = map(sum, 0, 1200, 0, 100);
+     float perc2 = map(1200- sum, 0, 1200, 0, 100);
+     
+     arc(950, 500, 200, 200, 0, y1, PIE);
+     textFont(font1,14);
+     textAlign(LEFT);
+     fill(255,255,255);
+     text(perc1 + "%" , 940, 540);
+     
+     fill(255, 0, 0);
+     arc(950, 500, 200, 200, y1, y2, PIE);
+     textFont(font1,14);
+     fill(255,255,255);
+     text(perc2 + "%" , 930, 460);   
+   }
+   
+   void heatLevel()
+   {
+     stroke(0, 122, 244);
+     strokeWeight(1);
+     noFill();
+     rect(670, 100, 400, 60);
+     line(870, 100, 870, 160);
+     rect(670, 180, 400, 60);
+     line(870, 180, 870, 240);      
+   }//end heatLevel
   
 
 }//end 

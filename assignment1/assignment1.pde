@@ -10,10 +10,7 @@ FirstPage fp;
 Button b1, b2, b3;
 Search search;
 Status stat;
-   
-
-
-
+  
 
 //create 3 buttons for side menu
 void initMenuButtons()
@@ -22,7 +19,6 @@ void initMenuButtons()
   b2 = new Button(1.5, height/2.55, width/4 +40, height / 8, initialColor, highlitedColor);
   b3 = new Button(1.5, height/1.71, width/4 +40, height / 8, initialColor, highlitedColor); 
 }
-
 
 boolean start = false;
 boolean locked;
@@ -97,14 +93,17 @@ void draw() {
         background(0);
         
         //stat.displayTime();
+        stat.drawGrid();
         stat.myBackground();
         stat.healthChart();       
         stat.circle();
-        
+        stat.heatLevel();        
       }
       
       if(checkButton2)
       {
+        background(0);
+        stat.drawGrid();
         displayPeriodicTable();
       }
       
@@ -205,13 +204,11 @@ void printPeriodicTable()
 //Display the elements of perodic table in rectangles
 void displayPeriodicTable()
 {
-    background(123);
-
-    int posx = 20;
-    int posy = 20;
-    float rectWidth = width/17 ;
+    int posx = 0;
+    int posy = 0;
+    float rectWidth = width/15 ;
     float rectHeight = height /10;
-    for(int i = 0; i < periodicTable.size(); i++)
+    for(int i = 0; i < periodicTable.size() - 18 ; i++)
     {
       if(posx < width - rectWidth*1.5)
       {
