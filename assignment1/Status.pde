@@ -1,9 +1,7 @@
 class Status{
   Button buton;
-  
-   String [] elements;
-   float [] values;
-   int n; 
+
+   
    float maxValue;
    float minValue;
    float average;
@@ -11,7 +9,7 @@ class Status{
    color c =  color(0, 200, 0);
    color c1 = color(25, 220, 20);
    
- 
+  
   void displayTime()
   {
      String date;
@@ -27,25 +25,14 @@ class Status{
   
 
 
-   void healthChart()
+   void healthChart()//float [] vals, String [] elms)
   {
    fill(255, 255,255);
    textAlign(LEFT);
    textFont(font1, 20);
    text("HEALTH ANALISYS MONITOR v098.21", 20, 20);
     
-   String [] elements = {"Palladium", "Oxygen", "Hydrogen", "Aluminium", "Titanium", "Magnesium", "Argon", "Nitrogen", "Sodium", "Zinc", "Krypton", "Vibranium", };
-     
-   n = elements.length;
-   
-   float [] values = new float[n];
-  
-   for(int i = 0; i < n; i++)
-   {
-      values[i] = random(10,75); //genereate random values for elements
-      println(values[i]); 
-   }
-   
+   int n = elements.length;
    sum = 0;
    maxValue = values[0];
    minValue = values[0]; 
@@ -63,7 +50,7 @@ class Status{
      } 
      sum += values[i];
    }
-   average  = sum / n;
+   average  = sum / values.length;
    
    float chartHeight;
    float chartWidth;
@@ -81,9 +68,13 @@ class Status{
        c = color(244,0,0);
      }
      if(values[i] > 25 && values[i] < 50)
-     {c = color(122,122,0);}
+     {
+       c = color(122,122,0);
+     }
      if(values[i] > 50)
-     {c = color(0,244,0);}
+     {
+       c = color(0,244,0);
+     }
      
      //drawChart and display name of element
      float y = i * barWidth +150;
@@ -109,10 +100,12 @@ class Status{
      {   
        for(int j = 0; j < periodicTable.size(); j++)
        {
-           if( elements[i].equals(trim(periodicTable.get(j).getName())))
-            {
-            println(elements[i] + periodicTable.get(j).getName());                        
-            }
+          if( elements[i].equals(trim(periodicTable.get(j).getName())))
+          {
+            println(elements[i] + periodicTable.get(j).getName() +   periodicTable.get(j).elementValue);                        
+            periodicTable.get(j).elementValue = (int)values[i];
+            println(elements[i] + periodicTable.get(j).getName() +   periodicTable.get(j).elementValue);
+          }
         }   
       } 
     }
@@ -137,12 +130,9 @@ class Status{
     
     
     text("HEAT", 715, 215);
+    text("465", 920, 215);
     
-    
-    
-   
-    
-    noLoop();
+    //noLoop();
   }
    
    void myBackground()
@@ -221,6 +211,38 @@ class Status{
      line(870, 180, 870, 240);      
    }//end heatLevel
   
+   void returnButton()
+   {
+       int rx = 630;
+       int ry = 560;
+       int size = 100;
+       rect(rx, ry, size, size);
+       image(returnImg, 600, 560, 100, 100);
+       if (mouseX >= rx  && mouseX <= rx + size && 
+          mouseY >= ry && mouseY <= ry + size)
+       { 
+         
+         fill(255,255,255);
+          if(mousePressed)
+          {          
+            backButton1 = true; 
+            checkButton1 = false;
+          
+          }
+       }
+       else
+       {
+         fill(122, 244, 0);
+       }
+       
+       rect(rx, ry, size, size);
+       image(returnImg, rx, ry, size, size);
+          
+        println(backButton1);
+        println(mouseX);
+        //exit();
+    }  
+    
 
 }//end 
 

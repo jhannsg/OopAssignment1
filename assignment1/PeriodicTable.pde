@@ -3,14 +3,16 @@ class PeriodicTable{
  String symbol;
  String name;
  String standardState;
+ int elementValue;
 
   //Constructor
-  PeriodicTable(int atomicNumber, String symbol, String name, String standardState)
+  PeriodicTable(int atomicNumber, String symbol, String name, String standardState, int elementValue)
   {
     this.atomicNumber = atomicNumber;
     this.symbol = symbol;
     this.name = name;
     this.standardState = standardState;
+    this.elementValue = elementValue;
     
   }
   

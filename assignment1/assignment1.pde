@@ -1,6 +1,8 @@
 PShape s;  // The PShape  for menu object
 PImage img;
 PImage mapImg;
+PImage returnImg;
+
 
 PFont font1;
 
@@ -25,12 +27,17 @@ boolean locked;
 boolean checkButton1 = false;
 boolean checkButton2 = false;
 boolean checkButton3 = false;
+
+boolean backButton1 = false; //rerutn from status to main menu
+
 color initialColor = color(112);        //initial color for the buttons on the menu bar
 color highlitedColor = color(123);  //color for the buttons on the menu bar when mouse is over
 
 ArrayList<PeriodicTable> periodicTable = new ArrayList<PeriodicTable>(); 
  
-
+String [] elements = {"Palladium", "Oxygen", "Hydrogen", "Aluminium", "Titanium", "Magnesium", "Argon", "Nitrogen", "Sodium", "Zinc", "Krypton", "Vibranium", };
+float [] values;
+int n ;
 void setup() {
 
   size(1280, 700);
@@ -46,6 +53,7 @@ void setup() {
   
   img = loadImage("ironman3.jpg");
   mapImg = loadImage("map.jpg");
+  returnImg = loadImage("return.png");
   
   search = new Search();
   
@@ -53,22 +61,32 @@ void setup() {
   
   
   font1 = loadFont("Chalk48.vlw"); 
+ 
+   
+     
+   //n = elements.length;
+   
+   values = new float[12];
   
-  
-  
+   for(int i = 0; i < 12; i++)
+   {
+      values[i] = random(10,75); //genereate random values for elements
+      println(values[i]); 
+   } 
+ 
 }//end setup()
 
 
 
 void draw() {
   
-  if(start == true)//change to false for loading
+  if(start == false)//change to false for loading
   {
     background(0);
     fp.drawFirstPage();
   }
 
-  else 
+  else //if( start == true && backButton1 == false || start == true && backButton1 == false)
   {
       background(50);
       image(img, 0, 0, 1280, 720);
@@ -97,7 +115,9 @@ void draw() {
         stat.myBackground();
         stat.healthChart();       
         stat.circle();
-        stat.heatLevel();        
+        stat.heatLevel();   
+        stat.returnButton();
+       
       }
       
       if(checkButton2)
@@ -113,7 +133,8 @@ void draw() {
           
       }
   }  
-}
+  
+}//end draw
 
 
 void update(int x, int y)
@@ -149,7 +170,7 @@ void update(int x, int y)
       checkButton3 = true;
     }
   }
-}
+}//end update()
 
 
 //Displays the control menu bar as a rectangle in the left hand side of the screen
@@ -184,7 +205,8 @@ void loadTable()
      PeriodicTable pt = new PeriodicTable(t.getInt(row, 0),
                        t.getString(row, 1),
                        t.getString(row, 2),              
-                       t.getString(row, 13)                   
+                       t.getString(row, 13),
+                       70  //added initial value for all elements in the table
                        );
      periodicTable.add(pt);
     
@@ -214,10 +236,16 @@ void displayPeriodicTable()
       {
         stroke(159, 242, 162);
         fill(184, 229, 242);
+        if(periodicTable.get(i).elementValue < 35)
+        {
+          fill(255, 0, 0);
+        }
         rect( posx, posy , rectWidth, rectHeight);
      
         PeriodicTable pt = periodicTable.get(i);
+       
         fill(50);
+
         int atomicNumber = periodicTable.get(i).getType();
         textSize(10);
         text(atomicNumber, posx + 5, posy + 15);
