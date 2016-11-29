@@ -11,3 +11,5 @@ As main documentation sources for this assignmemt i used the www.processing.org 
 
 
 My git repository address is  https://github.com/jhannsg/OopAssignment1/tree/master/assignment1
+
+The video is live at : https://youtu.be/jXlaNRuN0RY
