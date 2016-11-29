@@ -27,8 +27,11 @@ boolean locked;
 boolean checkButton1 = false;
 boolean checkButton2 = false;
 boolean checkButton3 = false;
+boolean activateHealth = false;
 
 boolean backButton1 = false; //rerutn from status to main menu
+boolean backButton2 = false;
+boolean backButton3 = false;
 
 color initialColor = color(112);        //initial color for the buttons on the menu bar
 color highlitedColor = color(123);  //color for the buttons on the menu bar when mouse is over
@@ -38,6 +41,9 @@ ArrayList<PeriodicTable> periodicTable = new ArrayList<PeriodicTable>();
 String [] elements = {"Palladium", "Oxygen", "Hydrogen", "Aluminium", "Titanium", "Magnesium", "Argon", "Nitrogen", "Sodium", "Zinc", "Krypton", "Vibranium", };
 float [] values;
 int n ;
+
+
+
 void setup() {
 
   size(1280, 700);
@@ -70,7 +76,7 @@ void setup() {
   
    for(int i = 0; i < 12; i++)
    {
-      values[i] = random(10,75); //genereate random values for elements
+      values[i] = random(5,65); //genereate random values for elements
       println(values[i]); 
    } 
  
@@ -80,7 +86,7 @@ void setup() {
 
 void draw() {
   
-  if(start == false)//change to false for loading
+  if(start == true)//change to false for loading
   {
     background(0);
     fp.drawFirstPage();
@@ -91,7 +97,11 @@ void draw() {
       background(50);
       image(img, 0, 0, 1280, 720);
       shape(s, 0, height / 10); //big menu box
-      
+      pushMatrix();
+      translate(-200, 0);
+      shape(s, 0, height / 10);
+      popMatrix();
+     
       update(mouseX, mouseY);
       
       b1.drawButton();
@@ -106,11 +116,9 @@ void draw() {
       text("   MAP", width/15, height/1.5);  
       
       //display the ironFace status when button pressed  
-      if(checkButton1)
+      if(checkButton1 )
       {
         background(0);
-        
-        //stat.displayTime();
         stat.drawGrid();
         stat.myBackground();
         stat.healthChart();       
@@ -120,16 +128,23 @@ void draw() {
        
       }
       
-      if(checkButton2)
+      if(checkButton2 && activateHealth)
       {
-        background(0);
-        stat.drawGrid();
         displayPeriodicTable();
+        
+      }
+      if(checkButton2 && !activateHealth)
+      {       
+        //background(0);
+        //stat.drawGrid();
+        errorMsg();      
+        
       }
       
       if(checkButton3)
       {
         search.drawLines();
+        search.radars();
           
       }
   }  
@@ -194,72 +209,3 @@ void menuShape()
   s.vertex(0, menuBoxHeight + height/23.33); 
   s.endShape(CLOSE); 
 }//end menuShape()
-
-
-void loadTable()
-{
-  Table t = loadTable("periodicTable.csv");
-  periodicTable.clear();
-  for (int row = 0; row < t.getRowCount(); row ++)
-   {
-     PeriodicTable pt = new PeriodicTable(t.getInt(row, 0),
-                       t.getString(row, 1),
-                       t.getString(row, 2),              
-                       t.getString(row, 13),
-                       70  //added initial value for all elements in the table
-                       );
-     periodicTable.add(pt);
-    
-   }
-}//end periodicTable()
-
-void printPeriodicTable()
-{
-  for(int i = 0; i < periodicTable.size(); i++)
-  {
-    PeriodicTable pt = periodicTable.get(i);
-    println(pt);
-  }
-}
-
-
-//Display the elements of perodic table in rectangles
-void displayPeriodicTable()
-{
-    int posx = 0;
-    int posy = 0;
-    float rectWidth = width/15 ;
-    float rectHeight = height /10;
-    for(int i = 0; i < periodicTable.size() - 18 ; i++)
-    {
-      if(posx < width - rectWidth*1.5)
-      {
-        stroke(159, 242, 162);
-        fill(184, 229, 242);
-        if(periodicTable.get(i).elementValue < 35)
-        {
-          fill(255, 0, 0);
-        }
-        rect( posx, posy , rectWidth, rectHeight);
-     
-        PeriodicTable pt = periodicTable.get(i);
-       
-        fill(50);
-
-        int atomicNumber = periodicTable.get(i).getType();
-        textSize(10);
-        text(atomicNumber, posx + 5, posy + 15);
-        text(periodicTable.get(i).getSymbol(),  posx + 40, posy + 15);
-        text(periodicTable.get(i).getName(),  posx , posy + 40);
-        text(periodicTable.get(i).getStandardState(),  posx + 43, posy + 65);
-        
-        posx += width/17 + 10;
-      }
-      else
-      {
-        posx = 20;
-        posy += rectHeight + 10;
-      }
-      
-    } 
-}

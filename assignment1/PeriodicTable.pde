@@ -42,6 +42,38 @@ class PeriodicTable{
     return this.standardState;
   }
   
+  void returnButton()
+   {
+       int rx = 630;
+       int ry = 560;
+       int size = 50;
+       rect(rx, ry, size, size);
+       image(returnImg, 600, 560, size, size);
+       if (mouseX >= rx  && mouseX <= rx + size && 
+          mouseY >= ry && mouseY <= ry + size)
+       { 
+         
+         fill(255,255,255);
+          if(mousePressed)
+          {          
+            backButton1 = true; 
+            checkButton1 = false;
+          
+          }
+       }
+       else
+       {
+         fill(122, 244, 0);
+       }
+       
+       rect(rx, ry, size, size);
+       image(returnImg, rx, ry, size, size);
+          
+        println(backButton1);
+        println(mouseX);
+        //exit();
+    }
+  
   
   
 }//end PeriodicTable()

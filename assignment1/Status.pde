@@ -213,11 +213,12 @@ class Status{
   
    void returnButton()
    {
-       int rx = 630;
-       int ry = 560;
-       int size = 100;
+       int rx = 615;
+       int ry = 615;
+       int size = 50;
+       
        rect(rx, ry, size, size);
-       image(returnImg, 600, 560, 100, 100);
+       image(returnImg, 600, 560, size, size);
        if (mouseX >= rx  && mouseX <= rx + size && 
           mouseY >= ry && mouseY <= ry + size)
        { 
@@ -227,7 +228,7 @@ class Status{
           {          
             backButton1 = true; 
             checkButton1 = false;
-          
+            activateHealth = true;
           }
        }
        else
@@ -241,6 +242,8 @@ class Status{
         println(backButton1);
         println(mouseX);
         //exit();
+       // return checkButton;
+        //return backButton;
     }  
     
 

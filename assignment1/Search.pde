@@ -27,7 +27,7 @@ class Search{
     line(x + searchBoxSize, 0, x  + searchBoxSize, h);
     x += searchIndex1;
      
-    if( x > w - searchBoxSize || x < 0)
+    if( x > w - searchBoxSize  - 250 || x < 0)
     {
       searchIndex1 = -1*searchIndex1;
     }
@@ -41,8 +41,8 @@ class Search{
       searchIndex2 = -1*searchIndex2;
     }
     
-     noStroke();
-     ellipse(x + searchBoxSize/2, y + searchBoxSize / 2, searchBoxSize,searchBoxSize);
+     //noStroke();
+     //ellipse(x + searchBoxSize/2, y + searchBoxSize / 2, searchBoxSize,searchBoxSize);
      
      
     
@@ -53,7 +53,42 @@ class Search{
      text(date, width - 200, 50);
      text(time, width - 200, 80);
   }
-    
+   
+Radar radar1 = new Radar(1160, 580, 120, 0.02f);
+Radar radar2 = new Radar(1160, 300, 120, 0.03f);  
+    void radars()
+    {
+      
+     stroke(mainColor);
+     strokeWeight(3);
+     fill(0);
+     rect(width - 250, 0, width, height); 
+     noStroke();
+     strokeWeight(1);
+     
+     //draw the grid
+     int rowCount = 15;
+     int colCount = 10;   
+     float celWidth = (width -250)  / (float)colCount;
+     float celHeight = celWidth;
+      for(int i = 0; i <= rowCount; i++)
+      {
+        for(int j = 0; j <= colCount ; j++)
+        {
+          stroke(0, 199, 0);
+           line(width - 250, j* celHeight , width, celHeight * j);
+           line(j* celWidth + (width-250)  ,0 , celWidth * j + (width-250), height  );
+        }
+      }
+     
+     radar1.update();
+     radar1.render();
+     
+     radar2.update();
+     radar2.render();
+     stat.displayTime();
+     
+    }
     
   
 }//end Search
