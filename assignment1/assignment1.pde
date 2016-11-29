@@ -66,10 +66,8 @@ void setup() {
   stat = new Status();
   
   
-  font1 = loadFont("Chalk48.vlw"); 
- 
-   
-     
+  font1 = loadFont("MagmawaveCaps-Bold-48.vlw"); 
+    
    //n = elements.length;
    
    values = new float[12];

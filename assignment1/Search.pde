@@ -54,8 +54,8 @@ class Search{
      text(time, width - 200, 80);
   }
    
-Radar radar1 = new Radar(1160, 580, 120, 0.02f);
-Radar radar2 = new Radar(1160, 300, 120, 0.03f);  
+Radar radar1 = new Radar(1160, 490, 100, 0.02f);
+Radar radar2 = new Radar(1160, 280, 100, 0.03f);  
     void radars()
     {
       
@@ -63,6 +63,9 @@ Radar radar2 = new Radar(1160, 300, 120, 0.03f);
      strokeWeight(3);
      fill(0);
      rect(width - 250, 0, width, height); 
+     fill(0, 255, 100);
+     textSize(40);
+     text("System OK", width - 230, 135);
      noStroke();
      strokeWeight(1);
      
@@ -88,6 +91,31 @@ Radar radar2 = new Radar(1160, 300, 120, 0.03f);
      radar2.render();
      stat.displayTime();
      
+     int x = 1180;
+     int y = 630;
+     int size = 30;
+     
+     if  ((dist(mouseX, mouseY, x+size, y)) < size * 0.5) //if mouse over circle
+      {
+        fill(67);
+        if(mousePressed)
+        {
+          start = false;
+          exit();
+        }
+      }
+      else
+      {
+        noFill(); 
+      }
+        stroke(mainColor);
+        strokeWeight(3);
+        ellipse(x +size, y, size*2, size*2); 
+        stroke(255,0,0);
+        line(x + size - 20, y - 20,  x + size + 20, y + 20);
+        line(x + size + 20, y - 20, x + size - 20, y + 20);
+     
+
     }
     
   

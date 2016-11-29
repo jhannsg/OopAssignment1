@@ -23,8 +23,7 @@ class Status{
      text(time, width - 200, 80);
   }
   
-
-
+  
    void healthChart()//float [] vals, String [] elms)
   {
    fill(255, 255,255);
@@ -102,9 +101,9 @@ class Status{
        {
           if( elements[i].equals(trim(periodicTable.get(j).getName())))
           {
-            println(elements[i] + periodicTable.get(j).getName() +   periodicTable.get(j).elementValue);                        
+            println(elements[i] + periodicTable.get(j).getName() +  periodicTable.get(j).elementValue);                        
             periodicTable.get(j).elementValue = (int)values[i];
-            println(elements[i] + periodicTable.get(j).getName() +   periodicTable.get(j).elementValue);
+            println(elements[i] + periodicTable.get(j).getName() + periodicTable.get(j).elementValue);
           }
         }   
       } 
@@ -185,7 +184,7 @@ class Status{
      float y2 = map(1200 , 0, 1200, 0, TWO_PI);
      
      float perc1 = map(sum, 0, 1200, 0, 100);
-     float perc2 = map(1200- sum, 0, 1200, 0, 100);
+     float perc2 = map(1200 - sum, 0, 1200, 0, 100);
      
      arc(950, 500, 200, 200, 0, y1, PIE);
      textFont(font1,14);
@@ -194,7 +193,7 @@ class Status{
      text(perc1 + "%" , 940, 540);
      
      fill(255, 0, 0);
-     arc(950, 500, 200, 200, y1, y2, PIE);
+     arc(950, 500, 200, 200, y1, y2, PIE); //start from the end of first arc()
      textFont(font1,14);
      fill(255,255,255);
      text(perc2 + "%" , 930, 460);   
