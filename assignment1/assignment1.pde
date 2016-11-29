@@ -5,6 +5,7 @@ PImage returnImg;
 
 
 PFont font1;
+PFont font2;
 
 color mainColor = color(0, 200, 0); //mai color
 
@@ -42,6 +43,8 @@ String [] elements = {"Palladium", "Oxygen", "Hydrogen", "Aluminium", "Titanium"
 float [] values;
 int n ;
 
+Enemies enemy = new Enemies(width/3, height/2, 60, color(255, 0, 0));
+
 
 
 void setup() {
@@ -67,7 +70,7 @@ void setup() {
   
   
   font1 = loadFont("MagmawaveCaps-Bold-48.vlw"); 
-    
+  font2 = loadFont("PingFangHK-Semibold-48.vlw");
    //n = elements.length;
    
    values = new float[12];
@@ -84,7 +87,7 @@ void setup() {
 
 void draw() {
   
-  if(start == true)//change to false for loading
+  if(start == false)//change to false for loading or true to skip
   {
     background(0);
     fp.drawFirstPage();
@@ -96,7 +99,7 @@ void draw() {
       image(img, 0, 0, 1280, 720);
       shape(s, 0, height / 10); //big menu box
       pushMatrix();
-      translate(-200, 0);
+      translate(-150, 0);
       shape(s, 0, height / 10);
       popMatrix();
      
@@ -133,8 +136,6 @@ void draw() {
       }
       if(checkButton2 && !activateHealth)
       {       
-        //background(0);
-        //stat.drawGrid();
         errorMsg();      
         
       }
@@ -143,6 +144,8 @@ void draw() {
       {
         search.drawLines();
         search.radars();
+        enemy.render();
+        enemy.update();
           
       }
   }  

@@ -48,7 +48,7 @@ class FirstPage
   {
    // fill(c);
     textSize(36);
-    text("DO YOU WISH TO CONTINUE ?", 380, 150);
+    text("DO YOU WANT TO CONTINUE ?", 380, 150);
     strokeWeight(4);
     stroke(c);
     noFill();
@@ -91,7 +91,5 @@ class FirstPage
    }
        
  }
-   
  
-  
 }
