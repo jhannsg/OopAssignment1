@@ -91,16 +91,16 @@ Radar radar2 = new Radar(1160, 280, 100, 0.03f);
      radar2.render();
      stat.displayTime();
      
-     int x = 1180;
-     int y = 630;
-     int size = 30;
+     int x = 1150;
+     int y = 660;
+     int size = 35;
      
      if  ((dist(mouseX, mouseY, x+size, y)) < size * 0.5) //if mouse over circle
       {
         fill(67);
         if(mousePressed)
         {
-          start = false;
+          start = true;
           exit();
         }
       }
@@ -114,6 +114,27 @@ Radar radar2 = new Radar(1160, 280, 100, 0.03f);
         stroke(255,0,0);
         line(x + size - 20, y - 20,  x + size + 20, y + 20);
         line(x + size + 20, y - 20, x + size - 20, y + 20);
+        
+        
+        //go back button
+        if (mouseX >= x - 90 && mouseX <= x - 70+ size && 
+          mouseY >= y -30 && mouseY <= y + size)
+       { 
+         
+         fill(255,255,255);
+          if(mousePressed)
+          {          
+           backButton2 = true;
+           checkButton3 = false;
+          }
+       }
+       else
+       {
+         fill(122, 244, 0);
+       }
+       //noStroke();
+       rect(x-90, y-30, size+20, size+20);
+       image(returnImg, x -90, y-30, size +20, size+20);
      
 
     }

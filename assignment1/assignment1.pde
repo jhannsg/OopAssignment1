@@ -90,7 +90,7 @@ void draw() {
     fp.drawFirstPage();
   }
 
-  else //if( start == true && backButton1 == false || start == true && backButton1 == false)
+  else 
   {
       background(50);
       image(img, 0, 0, 1280, 720);
