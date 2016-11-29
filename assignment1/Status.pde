@@ -237,15 +237,13 @@ class Status{
        
        rect(rx, ry, size, size);
        image(returnImg, rx, ry, size, size);
-          
-        println(backButton1);
-        println(mouseX);
-        //exit();
-       // return checkButton;
-        //return backButton;
+       
+       textFont(font2, 20);
+       fill(255, 0, 0);
+       text("Go back to HEALTH to improve !", rx-100, ry-20);
+
     }  
     
-
 }//end 
 
    
